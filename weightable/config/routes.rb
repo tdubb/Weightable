@@ -12,7 +12,7 @@ Weightable::Application.routes.draw do
   get "users/edit"
   get "users/show"
   get "users/index"
-  root 'index#show' 
+  root 'users#index' 
   resources :users do
     resources :weights
   end
