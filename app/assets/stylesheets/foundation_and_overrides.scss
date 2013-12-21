@@ -1288,7 +1288,8 @@ $topbar-link-color: #133CAC;
 $topbar-link-color-active: #133CAC;
 // $topbar-link-weight: bold;
 // $topbar-link-font-size: em-calc(13);
-// $topbar-link-hover-lightness: -30%; // Darken by 30%
+$topbar-link-hover-lightness:30%;
+$topbar-link-color-hover-lightness:#fff;
 // $topbar-link-bg-hover: darken($topbar-bg-color, 3%);
 // $topbar-link-bg-active: darken($topbar-bg-color, 3%);
 
