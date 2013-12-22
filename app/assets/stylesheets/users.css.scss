@@ -4,6 +4,10 @@
 
 .border {
   border-style:solid;
+  border-color:#FFD273;
+  border:1px solid rgba(50, 50, 50, 0.3);
+   -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box;
 }
 
 #background {
