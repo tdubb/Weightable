@@ -4,39 +4,10 @@
   </div> 
 </div>
 <div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,1) %> weight: ?lbs</h3>
-  </div> 
+  <% @user.weights.each do |weight| %>
+    <div class="large-12 columns">
+      <h3><%= link_to "weight:", user_weight_path(current_user.id,weight.id) %> <%= weight.pounds %>lbs, date: <%= weight.created_at.strftime("%d %b. %Y") %></h3>
+    </div>
+  <% end %> 
 </div>
-<div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,2) %> weight: ?lbs</h3>
-  </div> 
-</div>
-<div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,3) %> weight: ?lbs</h3>
-  </div> 
-</div>
-<div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,4) %> weight: ?lbs</h3>
-  </div> 
-</div>
-<div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,5) %> weight: ?lbs</h3>
-  </div> 
-</div><div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,6) %> weight: ?lbs</h3>
-  </div> 
-</div><div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,7) %> weight: ?lbs</h3>
-  </div> 
-</div><div class="row">
-  <div class="large-12 columns">
-    <h3>old posts go here <%= link_to "date", user_weight_path(1,8) %> weight: ?lbs</h3>
-  </div> 
-</div>
+
