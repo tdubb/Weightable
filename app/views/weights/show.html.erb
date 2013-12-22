@@ -38,8 +38,9 @@
     <br>
     <br>
     <div class="large-4 columns">
-
-      <%= image_tag(@weight.pic) %>
+      <% if @weight.pic != nil %>
+        <%= image_tag(@weight.pic) %>
+      <% end %>
     </div>
     <div class="large-8 columns">
     <h2>weight: <%= @weight.pounds %>lbs</h2>
