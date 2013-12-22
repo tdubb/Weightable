@@ -5,6 +5,8 @@ gem 'rails', '4.0.2'
 
 gem 'hirb'
 
+gem 'pry'
+
 gem 'devise'
 
 gem 'carrierwave'

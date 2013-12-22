@@ -6,9 +6,18 @@ class WeightsController < ApplicationController
 
   def create
     user = current_user
-    weight = Weight.new(weight_params)
-    weight.user_id = user.id
-    weight.save
+    lastweight = user.weights.last
+    if lastweight.created_at != Date.today
+      weight = Weight.new(params[weight_params])
+      weight.user_id = user.id
+      weight.save
+      user.weight_id = weight.id
+      weight.save
+      user.save
+    else
+      lastweight.pounds = params[:weight][:pounds]
+      lastweight.save
+    end
     redirect_to root_path
   end
 

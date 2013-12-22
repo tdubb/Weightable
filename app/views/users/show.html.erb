@@ -24,8 +24,8 @@
     <div class="has-form ">
       <div class="large-5 columns">
         <%= form_for [@user, @weight] do |f| %>
-          <%= f.text_area :pounds, value: "", placeholder: "???lbs", class: "fontsize" %> <%= f.file_field :pic %>
-          <p class="button [radius round small]"><%= f.submit "Update Weight" %></p>
+          <%= f.text_area :pounds, value: "", placeholder: "???lbs", class: "fontsize" %> <%= f.file_field :pic, class: "button radius" %>
+          <%= f.submit "Update Weight", class: "button radius" %>
         <% end %>
 
       </div>
