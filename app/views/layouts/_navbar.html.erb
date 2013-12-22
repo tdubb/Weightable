@@ -7,7 +7,7 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="has-dropdown">
-        <a href="#" >My Account</a>
+        <a>My Account</a>
         <ul class="dropdown">
           <% if user_signed_in? %>
             <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
