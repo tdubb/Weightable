@@ -9,9 +9,13 @@
       <li class="has-dropdown">
         <a href="#" >My Account</a>
         <ul class="dropdown">
-          <li><a href="#">Sign in/out</a></li>
-          <li><a href="#">View Account</a></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></a></li>
+              <li><a href="#">View Account</a></li>
           <li><a href="#">Edit Account</a></li>
+          <% else %>
+            <li><%= link_to "Sign in", new_user_session_path %></li>
+          <% end %> 
         </ul>
       </li>
     </ul>

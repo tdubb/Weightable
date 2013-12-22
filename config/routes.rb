@@ -1,5 +1,6 @@
 Weightable::Application.routes.draw do
   
+  devise_for :users
   get "weights/new"
   get "weights/updatecreate"
   get "weights/destroy"
