@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131222095308) do
+ActiveRecord::Schema.define(version: 20131223011804) do
 
   create_table "comments", force: true do |t|
     t.datetime "created_at"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20131222095308) do
     t.integer  "pounds"
     t.integer  "user_id"
     t.string   "pic"
+    t.date     "date",       default: '2013-12-22'
   end
 
 end
