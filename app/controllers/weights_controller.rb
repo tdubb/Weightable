@@ -19,7 +19,12 @@ class WeightsController < ApplicationController
       user.save
     else
       lastweight.pounds = params[:weight][:pounds]
-      lastweight.save
+      if params[:weight][:pic].present?
+        lastweight.pic = params[:weight][:pic]
+        lastweight.save
+      else
+        lastweight.save
+      end
     end
     redirect_to root_path
   end
