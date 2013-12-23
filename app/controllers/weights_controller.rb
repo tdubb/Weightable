@@ -7,7 +7,7 @@ class WeightsController < ApplicationController
   def create
     user = current_user
     lastweight = user.weights.last
-    if lastweight.date != Date.today
+    if user.weights.empty? || lastweight.date != Date.today
       weight = Weight.new(params[weight_params])
       weight.user_id = user.id
       weight.pounds = params[:weight][:pounds]
