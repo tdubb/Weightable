@@ -12,10 +12,8 @@ class WeightsController < ApplicationController
       weight.user_id = user.id
       weight.pounds = params[:weight][:pounds]
       weight.pic = params[:weight][:pic]
-
       weight.save
       user.weight_id = weight.id
-      weight.save
       user.save
     else
       lastweight.pounds = params[:weight][:pounds]

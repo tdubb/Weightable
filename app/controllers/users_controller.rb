@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  def landing
+    redirect_to users_show_path(current_user)
+  end
   def new
     @user = User.new
   end
