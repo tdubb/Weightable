@@ -6,7 +6,7 @@
 <div class="row">
   <% @user.weights.each do |weight| %>
     <div class="large-12 columns">
-      <h3><%= link_to "weight:", user_weight_path(current_user.id,weight.id) %> <%= weight.pounds %>lbs, date: <%= weight.created_at.strftime("%d %b. %Y") %></h3>
+      <h3><%= link_to "weight:", user_weight_path(current_user.id,weight.id) %> <%= weight.pounds %>lbs, date: <%= weight.date %></h3>
     </div>
   <% end %> 
 </div>
