@@ -37,12 +37,12 @@
           <%= f.submit "Deadline", class: "button radius" %>
         <% end %>
     <% end %>
-    <div class="has-form">
-      <div class="large-5 columns">
-        <%= form_for [@user, @weight] do |f| %>
-          <%= f.text_field :pounds, value: "", placeholder: "???lbs", class: "fontsize" %> <%= f.file_field :pic, class: "button radius" %>
-          <%= f.submit "Update Weight", class: "button radius" %>
-        <% end %>
+    <div class="has-form row">
+      <div class="large-7 columns">
+          <%= form_for [@user, @weight] do |f| %>
+            <%= f.text_field :pounds, value: "", placeholder: "???lbs", class: "fontsize" %> <%= f.file_field :pic, class: "button radius" %>
+            <%= f.submit "Update Weight", class: "button radius" %>
+          <% end %>
       </div>
     </div>
   </div>
