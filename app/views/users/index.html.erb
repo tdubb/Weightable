@@ -3,6 +3,6 @@
 
 <ul class="large-block-grid-6 margin center">
   <% current_user.followers.each do |friend| %>
-  <li>My Friend<br><%= image_tag(friend.profile_pic, size: "150x75") %></li>
+  <li>My Friend<br><%= image_tag(friend.profile_pic, size: "150x75", class: "imgcenter2") %></li>
   <% end %>
 </ul>

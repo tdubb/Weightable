@@ -16,16 +16,31 @@
     <h6></h6>
   </div>
   <div class="large-7 columns white border">
-    <h2>
-      Goal Weight: 165lbs
-    </h2>
-    <h2>
-      Deadline: January 31st
-    </h2>
+    <% if current_user.goal? %>
+      <h3>
+        Goal Weight: <%= current_user.goal %>lbs<%= link_to("change", { controller: :users, action: :destroy }, { method: :delete })%>
+      </h3>
+    <% else %>
+      <%= form_for @user do |f| %>
+        <%= f.text_field :goal, value: "", placeholder: "Update Goal", class: "fontsize" %> 
+        <%= f.submit "Goal", class: "button radius" %>
+      <% end %>
+    <% end %>
+    <% if current_user.deadline? %>
+      <h3>
+
+        Deadline: <%= current_user.deadline %> <%= link_to("change", { controller: :users, action: "destroy" }, { method: :delete })%>
+      </h3>
+    <% else %>
+        <%= form_for current_user do |f| %>
+          <%= f.text_field :pounds, value: "", placeholder: "Update Deadline", class: "fontsize" %>
+          <%= f.submit "Deadline", class: "button radius" %>
+        <% end %>
+    <% end %>
     <div class="has-form">
       <div class="large-5 columns">
         <%= form_for [@user, @weight] do |f| %>
-          <%= f.text_area :pounds, value: "", placeholder: "???lbs", class: "fontsize" %> <%= f.file_field :pic, class: "button radius" %>
+          <%= f.text_field :pounds, value: "", placeholder: "???lbs", class: "fontsize" %> <%= f.file_field :pic, class: "button radius" %>
           <%= f.submit "Update Weight", class: "button radius" %>
         <% end %>
       </div>

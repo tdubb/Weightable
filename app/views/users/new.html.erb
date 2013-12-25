@@ -1,3 +1,4 @@
 <%= render "layouts/navbar" %>
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+
+<% if @friends? @friends.each do |friend| %>
+<h3><%= imgage_tag(friend.profile.pic, class: "imgcenter")</h3>

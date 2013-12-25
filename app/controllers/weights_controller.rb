@@ -29,6 +29,7 @@ class WeightsController < ApplicationController
 
   def show
     @weight = Weight.find_by_id(params[:id])
+    @user = current_user
   end
 
   def new
