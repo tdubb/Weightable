@@ -16,26 +16,20 @@
     <h6></h6>
   </div>
   <div class="large-7 columns white border">
-    <% if current_user.goal? %>
+    <% if current_user.goal? && current_user.deadline? %>
       <h3>
         Goal Weight: <%= current_user.goal %>lbs<%= link_to("change", { controller: :users, action: :destroy }, { method: :delete })%>
       </h3>
-    <% else %>
-      <%= form_for @user do |f| %>
-        <%= f.text_field :goal, value: "", placeholder: "Update Goal", class: "fontsize" %> 
-        <%= f.submit "Goal", class: "button radius" %>
-      <% end %>
-    <% end %>
-    <% if current_user.deadline? %>
       <h3>
 
         Deadline: <%= current_user.deadline %> <%= link_to("change", { controller: :users, action: "destroy" }, { method: :delete })%>
       </h3>
     <% else %>
-        <%= form_for current_user do |f| %>
-          <%= f.text_field :pounds, value: "", placeholder: "Update Deadline", class: "fontsize" %>
-          <%= f.submit "Deadline", class: "button radius" %>
-        <% end %>
+      <%= form_for @user do |f| %>
+        <%= f.text_field :goal, value: "", placeholder: "Update Goal", class: "fontsize" %> 
+        <%= f.text_field :deadline, value: "", placeholder: "Update Deadline", class: "fontsize" %>
+        <%= f.submit "Goal & Deadline", class: "button radius" %>
+      <% end %>
     <% end %>
     <div class="has-form row">
       <div class="large-7 columns">

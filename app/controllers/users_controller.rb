@@ -9,8 +9,10 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.deadline = params[:deadline]
+    @user.deadline = params[:user][:deadline]
+    @user.goal = params[:user][:goal]
     @user.save
+    redirect_to root_path
   end
 
   def create
