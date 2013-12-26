@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20131223181059) do
     t.integer  "pounds"
     t.integer  "user_id"
     t.text     "pic"
-    t.date     "date",       default: '2013-12-25'
+    t.date     "date"
   end
 
 end

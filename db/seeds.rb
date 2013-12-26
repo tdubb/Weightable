@@ -1,4 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
+p# This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
@@ -57,15 +57,11 @@ puts "destroy weight data"
 
 Weight.destroy_all
 weights = [
+       
           {
-            pounds: "185",
+            pounds: "189",
             user_id: 1,
-            date: "2013-12-25"
-          },
-          {
-            pounds: "186",
-            user_id: 1,
-            date: "2013-12-24"
+            date: "2013-12-22"
           },
           {
             pounds: "188",
@@ -73,10 +69,16 @@ weights = [
             date: "2013-12-23"
           },
           {
-            pounds: "189",
+            pounds: "186",
             user_id: 1,
-            date: "2013-12-22"
+            date: "2013-12-24"
+          },
+          {
+            pounds: "185",
+            user_id: 1,
+            date: "2013-12-25"
           }
+        
 ]
 
 weights.each do |weight|

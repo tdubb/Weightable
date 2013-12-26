@@ -3,8 +3,6 @@ class UsersController < ApplicationController
     redirect_to users_show_path(current_user)
   end
   def new
-   @friends = User.find_by_email(params[:email])
-
   end
 
   def update
@@ -35,7 +33,12 @@ class UsersController < ApplicationController
   end
 
   def index
-    @user = current_user
+    @search = User.search(params[:q])
+    @users = @search.result
+  end
+
+  def friends
+    @user = User.find_by_email(params[:email])
   end
 
   private
