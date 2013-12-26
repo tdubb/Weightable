@@ -33,8 +33,6 @@ class UsersController < ApplicationController
   end
 
   def index
-    @search = User.search(params[:q])
-    @users = @search.result
   end
 
   def friends

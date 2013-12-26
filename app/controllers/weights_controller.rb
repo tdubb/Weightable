@@ -12,6 +12,8 @@ class WeightsController < ApplicationController
       weight.user_id = user.id
       weight.pounds = params[:weight][:pounds]
       weight.pic = params[:weight][:pic]
+      weight.goal = user.goal
+      weight.deadline = user.deadline
       weight.save
       user.weight_id = weight.id
       user.save

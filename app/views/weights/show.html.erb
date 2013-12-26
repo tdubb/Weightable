@@ -16,10 +16,10 @@
   </div>
   <div class="large-7 columns white border">
     <h2>
-      Goal Weight: 165lbs
+      Goal Weight: <%= current_user.goal %>
     </h2>
     <h2>
-      Deadline: January 31st
+      Deadline: <%= current_user.deadline %>
     </h2>
     <br>
     <br>
@@ -56,6 +56,9 @@
       <% end %>
     </div>
     <div class="large-8 columns">
+    <% if @weight.goal.present? && @weight.deadline.present? %>
+    <h3>goal:<%= @weight.goal %>, deadline:<%= @weight.deadline %></h3>
+    <% end %>
     <h2>weight: <%= @weight.pounds %>lbs</h2>
     <h2> <%= @weight.date %></h2>
     <h3><%= link_to "My Weigh Ins", '../weights#show' %></h3>
