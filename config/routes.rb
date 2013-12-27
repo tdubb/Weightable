@@ -14,6 +14,8 @@ Weightable::Application.routes.draw do
   get "users/show"
   get "users/index"
   root 'users#landing' 
+  post "users/search"
+  get "users/search"
   resources :users do
     resources :weights
   end

@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
 
   has_many :followeds, :class_name => 'Following', :foreign_key => 'followed_id'
   has_many :followers, :through => :followeds, :source => :user
+
 end

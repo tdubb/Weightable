@@ -26,8 +26,8 @@
       <li class="has-form">
         <div class="row collapse">
           <div class="large-8 small-9 columns">
-             <%= form_for(@user, controller: :users, action: "friends" ) do |f| %>
-              <%= f.text_field :email, value: "", placeholder: "find friends..." %>
+             <%= form_for User.new, url: "search" do |f| %>
+              <%= f.text_field :name, value: "", placeholder: "find friends..." %>
           </div>
           <div class="large-4 small-3 columns">
               <%= f.submit "search", class: "alert button radius" %>

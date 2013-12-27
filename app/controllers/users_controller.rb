@@ -27,12 +27,18 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def search
+    q = params[:user][:name]
+    @users = User.find(:all, :conditions => ["name LIKE ?",q])
+  end
+
   def show
     @user = current_user
     @weight = Weight.new(pounds:@weight.to_i, user_id:@user.id)
   end
 
   def index
+    @user = current_user
   end
 
   def friends

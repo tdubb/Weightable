@@ -19,6 +19,9 @@ class WeightsController < ApplicationController
       user.save
     else
       lastweight.pounds = params[:weight][:pounds]
+      lastweight.goal = user.goal
+      lastweight.deadline = user.deadline
+
       if params[:weight][:pic].present?
         lastweight.pic = params[:weight][:pic]
         lastweight.save
