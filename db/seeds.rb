@@ -87,46 +87,46 @@ end
 
 puts "add weight dummy data"
 
-puts "destroy following data"
+puts "destroy friendship data"
 
-Following.destroy_all
+Friendship.destroy_all
 
 friends = [
           {
             user_id: 2,
-            followed_id: 1
+            friend_id: 1
           },
           {
             user_id: 1,
-            followed_id: 2
+            friend_id: 2
           },{
             user_id: 1,
-            followed_id: 3
+            friend_id: 3
           },
           {
             user_id: 3,
-            followed_id: 1
+            friend_id: 1
           },
           {
             user_id: 4,
-            followed_id: 1
+            friend_id: 1
           },
           {
             user_id: 1,
-            followed_id: 4
+            friend_id: 4
           },
           {
             user_id: 2,
-            followed_id: 3
+            friend_id: 3
           },
           {
             user_id: 3,
-            followed_id: 2
+            friend_id: 2
           },
 ]
 
 friends.each do |friend|
-  Following.create(user_id:friend[:user_id], followed_id:friend[:followed_id])
+  Friendship.create(user_id:friend[:user_id], friend_id:friend[:friend_id])
 end
 
 puts "friends created"

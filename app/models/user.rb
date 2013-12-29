@@ -5,10 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :weights, dependent: :destroy
 
-  has_many :friends
-  has_many :friends, :through => :followings, :source => 'followed'
-
-  has_many :followeds, :class_name => 'Following', :foreign_key => 'followed_id'
-  has_many :followers, :through => :followeds, :source => :user
+  has_many :friendships
+  has_many :friends, :through => :friendships
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 
 end

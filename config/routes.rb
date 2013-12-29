@@ -16,6 +16,9 @@ Weightable::Application.routes.draw do
   root 'users#landing' 
   post "users/search"
   get "users/search"
+
+  resources :friendships
+
   resources :users do
     resources :weights
   end
