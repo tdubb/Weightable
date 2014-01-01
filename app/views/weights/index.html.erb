@@ -2,11 +2,218 @@
   <div class="large-12 columns">
   </div> 
 </div>
+<% my_weights = [] %>
+<% my_dates = [] %>
 <div class="row">
   <% @user.weights.each do |weight| %>
+  <% my_weights << weight.pounds %>
+  <% my_dates << weight.date %>
     <div class="large-12 columns">
       <h3><%= link_to "weight:", user_weight_path(current_user.id,weight.id) %> <%= weight.pounds %>lbs, date: <%= weight.date %></h3>
     </div>
   <% end %> 
-</div>
+</div><!-- 
+<%= my_weights %><br>
+ -->
+<!-- calculate the max and min of all data point plus the goal. Then set chart max and min to be 20 percentage more than the difference btw max and min values.  
+ -->
+<% extremes = (my_weights.compact).push(@user.goal.to_i).minmax %>
+<% diff = extremes[1] - extremes[0] %>
+<% min = extremes[0] - diff*0.20 > 0 ? extremes[0] - diff*0.20 : 0.0 %>
+<% max = extremes[1] + diff*0.20 %>
+<img src=
+ <%=Gchart.line(
+            :size => '600x400',
+            :bar_colors => ['0088FF','FF0000'],
+            :title => "My Weight Progress",
+            :bg => 'EFEFEF',
+            :legend => ['My Weight', 'My Goal'],
+            :data => [my_weights,  Array.new(my_weights.length,@user.goal.to_i)],
+            :filename => 'images/bar_chart.png',
+            :stacked => false,
+            # :legend_position => 'right',
 
+            :axis_with_labels => [['x'], ['y']],
+            :max_value => max,
+            :min_value => min,
+            :axis_labels => [my_dates])%>
+>
+<br>
+<!-- 
+Show my weight progress and the weight progress of one friend.  This assumes we have data 
+for all the same dates and that there the only  missing values are at the beginning or end
+of each person series 
+<br>
+<% goal = 20 %>
+<% data_array_1 = [nil, 4, 3, 5, 9]%>
+<% data_array_2 = [4, 2, 10, 4, nil] %>
+
+<% dates1 = ['12-01-1988','12-31-1988','12-15-1988','12-16-1988','12-20-1988'].sort %>
+<% extremes = (data_array_1.compact + data_array_2.compact).push(goal).minmax %>
+<% diff = extremes[1] - extremes[0] %>
+<% min = extremes[0] - diff*0.20 > 0 ? extremes[0] - diff*0.20 : 0.0 %>
+<% max = extremes[1] + diff*0.20 %>
+
+
+ <img src=
+ <%=Gchart.line(
+            :size => '600x400',
+            :bar_colors => ['000000', '0088FF','FF0000'],
+            :title => "Weight Progress",
+            :bg => 'EFEFEF',
+            :legend => ['My Weight', 'Friend Weight', 'GOAL'],
+            :data => [data_array_1, data_array_2, Array.new(data_array_1.length,goal)],
+            :filename => 'images/bar_chart.png',
+            :stacked => false,
+            # :legend_position => 'right',
+
+            :axis_with_labels => [['x'], ['y']],
+            :max_value => max,
+            :min_value => min,
+            :axis_labels => [dates1])%>
+>
+<br> -->
+<!-- 
+How to add all friends in?  We need to fill in nil values to everybodies timeline.
+We could loop over all friends, making big array of dates.  Then create an array of weights that long for each person.  Then when we iterate over each person only fill
+in weight if they have a matching date.
+ -->
+
+<% legendary = ['My Goal', @user.name] %>
+
+ <!-- find all the dates -->
+ <% all_dates = [] %>
+ <% @user.followers.each do |friend| %>
+ <% legendary << friend.name %>
+    <% friend.weights.each do |weight| %>
+      <% all_dates << weight.date %>
+  <% end %>
+<% end %>
+ <% @user.weights.each do |weight| %>
+  <% all_dates <<  weight.date %>
+<% end %>
+<% all_dates = all_dates.uniq{|x| x}.sort %>
+<!-- 
+<%= all_dates %><br>
+ -->
+<!-- Initalize all weights -->
+<% all_weights = [] %>
+
+<!-- store the user goal -->
+<% all_weights <<Array.new(my_weights.length,@user.goal.to_i) %>
+
+<!-- find weight for user -->
+<% weight1 = Array.new(all_dates.length,nil) %>
+<% all_dates.each_with_index do |date, index| %>
+  <% @user.weights.each do |weight| %>
+    <% if (weight.date == date) %>
+      <% weight1[index] = weight.pounds %>
+    <% end %>
+  <% end %>
+<% end %>
+<% all_weights << weight1 %>
+
+<!-- find weight for users friends -->
+<% @user.followers.each do |friend| %>
+<% weight_n = Array.new(all_dates.length,nil) %>
+  <% all_dates.each_with_index do |date, index| %>
+    
+    <% friend.weights.each do |weight| %>
+      <% if (weight.date == date) %>
+        <% weight_n[index] = weight.pounds %>
+      <% end %>
+    <% end %>
+    
+  <% end %>
+  <% all_weights << weight_n %>
+<% end %>
+
+<% uniques = [] %>
+<% all_weights.each do |weight_array| %>
+ <% weight_copy = Array.new(weight_array) %>
+  <% weight_copy.delete(nil) %>
+  <% uniques += weight_copy %>
+<% end %>
+
+<!-- delete nils btw numbers  -->
+<% all_weights.each do |weight_array| %>
+  <% flag =true %>
+  <% last = 0 %>
+   <% weight_array.each_with_index  do |weight, index| %>
+      <% if flag and !weight.nil? %>
+          <% flag = false %>
+          <% last = weight %>
+       <% elsif !flag and weight.nil? %>
+          <% weight_array[index] = last %>
+       <% elsif !flag and !weight.nil? %>
+          <% flag = true %>
+          <% last = weight %>
+      <% end %>
+  <% end %><!-- 
+  <%= "updated weights #{weight_array}" %><br> -->
+<% end %>
+
+<% extremes = uniques.minmax %>
+<% diff = extremes[1] - extremes[0] %>
+<% min = extremes[0] - diff*0.20 > 0 ? extremes[0] - diff*0.20 : 0.0 %>
+<% max = extremes[1] + diff*0.20 %>
+<!-- 
+<%= legendary %>  <br>
+<%= extremes %>  <br>
+<%= all_weights %><br>
+ -->
+<br>
+<h4>
+This charts data for all friends but replces any nil values in between valid weights, 
+with that of the person's last known weight.  A better solution would be to interpolate the missing value.
+</h4>
+<br>
+<img src=
+ <%=Gchart.line(
+            :size => '600x400',
+            :theme => :keynote,
+            :title => "Everybody's Weight Progress",
+            :bg => 'EFEFEF',
+            :legend => legendary,
+            :data => all_weights,
+            :filename => 'images/bar_chart.png',
+            :stacked => false,
+            :axis_with_labels => [['x'], ['y']],
+            :max_value => max,
+            :min_value => min,
+            :axis_labels => [all_dates])%>
+>
+<h4>
+  What we might want to do is actually limit the date ranges shown for a graph.
+  Currently, I show the timeline for everybody.  It might be more relevant to
+  the user to start with  the date that they set the goal.  Alternatively, we
+  coud just add some javascript controls to allow a person to selct the date
+  ranges they want to see, which friends they want to see also, plus if they 
+  want to chart their freinds goals too.
+</h4>
+
+<br>
+
+<br>
+
+<!-- 
+Here I was trying to use 'line_xy' instead of 'line'.  I ran into problems
+with using date as a data point
+
+ <img src=
+
+ Gchart.line_xy(
+            :size => '600x400',
+            :theme => :keynote,
+            :title => "Weight Progress",
+            :bg => 'EFEFEF',
+            :data => [[Date.parse('12-01-1988','%m-%d-%Y').to_time.to_i,Date.parse('12-02-1988','%m-%d-%Y').to_time.to_i,Date.parse('12-03-1988','%m-%d-%Y').to_time.to_i],[4,5,6],[Date.parse('12-01-1988','%m-%d-%Y').to_time.to_i,Date.parse('12-02-1988','%m-%d-%Y').to_time.to_i,Date.parse('12-03-1988','%m-%d-%Y').to_time.to_i,Date.parse('12-05-1988','%m-%d-%Y').to_time.to_i],[15,16,7,2]],
+            :filename => 'images/bar_chart.png',
+            :encoding => 'extended',
+            :max_value => 'false' ,
+            :stacked => false)
+
+>
+<br>
+<br> -->
+<br>

@@ -77,6 +77,16 @@ weights = [
             pounds: "185",
             user_id: 1,
             date: "2013-12-25"
+          },
+          {
+            pounds: "165",
+            user_id: 2,
+            date: "2013-12-23"
+          },
+          {
+            pounds: "169",
+            user_id: 2,
+            date: "2013-12-20"
           }
         
 ]
