@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :who_are_you, :only => [:landing]
+
   def landing
     if user_signed_in?
       redirect_to users_show_path(current_user)
