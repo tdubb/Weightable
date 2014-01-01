@@ -12,5 +12,11 @@
  *= require foundation_and_overrides
  *= require_tree .
  */
-
+#intro{
+  margin: 20px;
+  font-size: 2em;
+}
  
+ #centered{
+  text-align: center;
+ }

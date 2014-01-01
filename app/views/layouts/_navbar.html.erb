@@ -23,6 +23,7 @@
     <!-- Left Nav Section -->
     <ul class="left margin left">
       <li><%= link_to "Home", root_path %></li>
+      <% if user_signed_in? %>
       <li class="has-form">
         <div class="row collapse">
           <div class="large-8 small-9 columns">
@@ -35,6 +36,7 @@
           </div>
         </div>
       </li>
+      <% end %>
     </ul>
   </section>
 </nav>
